@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">TrabalhoLFA_dois</string>
+    <string name="hint_et_conjunto_verbal">Verbos. Separados por vírgula (Ex.: S,A,B)</string>
+    <string name="label_verificar_input_gramatica">Digite algo para verificar</string>
+    <string name="hint_et_terminais">Terminais. Separados por vírgula (Ex.: 0,1)</string>
+    <string name="hint_et_regras">Regras. Exemplo\nS-Sa|Ab\nA-B|c\nB-Bb|Ac|d</string>
+    <string name="hint_et_simbolo_incial">Símbolo inicial (Ex.: s)</string>
+    <string name="label_validar">VALIDAR</string>
+</resources>

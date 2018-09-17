@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/layoutEntradas"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="10dp"
+            android:padding="5dp"
+            android:visibility="gone">
+
+            <EditText
+                android:id="@+id/etPalavraEntrada"
+                android:layout_width="0dp"
+                android:layout_weight="5"
+                android:layout_height="45dp"
+                android:hint="Input"/>
+
+            <EditText
+                android:id="@+id/etSaida"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="45dp"
+                android:textSize="13sp"
+                android:hint="S/N" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnVerificarInput"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="@string/label_verificar_input_gramatica"
+            android:visibility="gone"/>
+
+        <LinearLayout
+            android:id="@+id/layoutVerbos"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="10dp">
+
+            <TextView
+                android:id="@+id/tvVerbos"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:textSize="23sp"
+                android:text="V"
+                android:textStyle="bold"
+                android:gravity="center" />
+
+            <EditText
+                android:id="@+id/etVerbos"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:hint="@string/hint_et_conjunto_verbal"
+                android:textSize="13sp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutTerminais"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="10dp">
+
+            <TextView
+                android:id="@+id/tvTerminais"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:textSize="23sp"
+                android:text="T"
+                android:textStyle="bold"
+                android:gravity="center" />
+
+            <EditText
+                android:id="@+id/etTerminais"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:hint="@string/hint_et_terminais"
+                android:textSize="13sp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutRegras"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="10dp">
+
+            <TextView
+                android:id="@+id/tvRegras"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:textSize="23sp"
+                android:text="P"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:layout_gravity="start"/>
+
+            <EditText
+                android:id="@+id/etRegras"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:hint="@string/hint_et_regras"
+                android:gravity="start"
+                android:textSize="13sp"
+                android:layout_gravity="start"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutSimboloinicial"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="10dp">
+
+            <TextView
+                android:id="@+id/ivSimboloInicial"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:textSize="23sp"
+                android:text="S"
+                android:textStyle="bold"
+                android:gravity="center" />
+
+            <EditText
+                android:id="@+id/etSimboloInicial"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:hint="@string/hint_et_simbolo_incial"
+                android:textSize="13sp"/>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnValidar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="@string/label_validar" />
+
+    </LinearLayout>
+</ScrollView>

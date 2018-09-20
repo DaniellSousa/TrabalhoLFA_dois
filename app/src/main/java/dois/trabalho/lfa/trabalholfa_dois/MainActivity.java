@@ -190,7 +190,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void checkInput() {
+    private void checkInput(String input) {
+
+        for (int i =0; i< input.length(); i++) {
+
+        }
+
 
     }
 

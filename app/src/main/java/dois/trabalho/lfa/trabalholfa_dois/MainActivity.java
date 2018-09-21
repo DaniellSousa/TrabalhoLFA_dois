@@ -76,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "Válido!", Toast.LENGTH_LONG).show();
                     organizarPropriedades();
                     layoutEntrada.setVisibility(View.VISIBLE);
+                    btnVerificarInput.setVisibility(View.VISIBLE);
                 }
 
             }
@@ -192,13 +193,34 @@ public class MainActivity extends AppCompatActivity {
 
     private void checkInput(String input) {
 
-        boolean inputValido = false;
+        boolean inputValido = true;
         boolean sair1 = false;
         boolean sair2 = false;
         boolean sair3 = false;
 
         boolean temQueVoltar = false;
         boolean temQueParar = false;
+
+        int countNaoTem = 0;
+        for (int a=0; a<input.length(); a++) {
+
+            countNaoTem = 0;
+            for (int b=0; b<this.terminais.size(); b++) {
+                if (!String.valueOf(input.charAt(a)).equals(this.terminais.get(b))) {
+                    countNaoTem += 1;
+                }
+            }
+
+            if (countNaoTem == (this.terminais.size())) {
+                inputValido = false;
+                break;
+            }
+        }
+
+        if (!inputValido) {
+            this.etSaida.setText("N");
+            return;
+        }
 
         for (int i =0; i< input.length(); i++) {
 
@@ -209,12 +231,26 @@ public class MainActivity extends AppCompatActivity {
                     if (input.charAt(i) == regras.get(verbo).charAt(z)) {
                         inputValido = true;
                         sair3 = true;
-                    }else if (verbo != String.valueOf(regras.get(verbo).charAt(z)) && isAnyVerb(String.valueOf(regras.get(verbo).charAt(z)))) {
+                    }else if (!verbo.equals(String.valueOf(regras.get(verbo).charAt(z))) && isAnyVerb(String.valueOf(regras.get(verbo).charAt(z)))) {
                         // Navegar nos itens desse outro verbo isAnyVerb(String.valueOf(input.charAt(i))). Verificar se tem algum terminal em algum item desse outro verbo.
 
-                    }
+                        String itemsOutroVerbo = getItemsFromVerb(String.valueOf(input.charAt(i)));
 
-                    // Ver se ja passou por todas as regras de todos os verbos, se input ainda for false, sai de tudo e seta N no campo de saída.
+                        boolean sair4 = false;
+
+                        for (int w=0; w<itemsOutroVerbo.length(); w++) {
+                            if (input.charAt(i) == itemsOutroVerbo.charAt(w)) {
+                                inputValido = true;
+                                sair4 = true;
+                                break;
+                            }
+                        }
+
+                        if (sair4) {
+                            break;
+                        }
+
+                    }
 
                     if (sair3) {
                         break;
@@ -240,6 +276,19 @@ public class MainActivity extends AppCompatActivity {
         }else {
             etSaida.setText("N");
         }
+    }
+
+    private String getItemsFromVerb(String verb) {
+        String items = "";
+
+        for (String key : regras.keySet()) {
+            if (key == verb) {
+                items = regras.get(key);
+                break;
+            }
+        }
+
+        return items;
     }
 
     private boolean isAnyVerb(String item) {

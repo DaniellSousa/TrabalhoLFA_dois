@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
                 if (etPalavraEntra.getText().toString().trim().length() == 0) {
                     Toast.makeText(MainActivity.this, "Digite algo no input.", Toast.LENGTH_LONG).show();
                 }else {
-                    checkInput();
+                    checkInput(etPalavraEntra.getText().toString().trim());
                 }
             }
         });
@@ -192,11 +192,92 @@ public class MainActivity extends AppCompatActivity {
 
     private void checkInput(String input) {
 
+        boolean inputValido = false;
+        boolean sair1 = false;
+        boolean sair2 = false;
+        boolean sair3 = false;
+
+        boolean temQueVoltar = false;
+        boolean temQueParar = false;
+
         for (int i =0; i< input.length(); i++) {
+
+            for (String verbo : regras.keySet()) {
+
+                for (int z=0; z<regras.get(verbo).length(); z++) {
+
+                    if (input.charAt(i) == regras.get(verbo).charAt(z)) {
+                        inputValido = true;
+                        sair3 = true;
+                    }else if (verbo != String.valueOf(regras.get(verbo).charAt(z)) && isAnyVerb(String.valueOf(regras.get(verbo).charAt(z)))) {
+                        // Navegar nos itens desse outro verbo isAnyVerb(String.valueOf(input.charAt(i))). Verificar se tem algum terminal em algum item desse outro verbo.
+
+                    }
+
+                    // Ver se ja passou por todas as regras de todos os verbos, se input ainda for false, sai de tudo e seta N no campo de saída.
+
+                    if (sair3) {
+                        break;
+                    }
+                }
+
+
+                if (sair2) {
+                    break;
+                }
+
+            }
+
+
+            if (sair1) {
+                break;
+            }
 
         }
 
+        if (inputValido) {
+            etSaida.setText("S");
+        }else {
+            etSaida.setText("N");
+        }
+    }
 
+    private boolean isAnyVerb(String item) {
+        boolean is = false;
+
+        for (int i=0; i<this.verbos.size(); i++) {
+
+            if (item == this.verbos.get(i)) {
+                is = true;
+                break;
+            }
+        }
+
+        return is;
+    }
+
+
+    private String getPrimeiroVerboEncontrado(String valuesInVerb) {
+        String r = "";
+        boolean sair = false;
+        for (int i=0; i<valuesInVerb.length(); i++) {
+            for (int j=0; j<this.verbos.size(); j++) {
+
+                if (this.verbos.get(j).equals(valuesInVerb.charAt(i))) {
+                    sair = true;
+                    r = String.valueOf(valuesInVerb.charAt(i));
+                    break;
+                }
+
+            }
+
+            if (sair) {
+                break;
+            }
+
+        }
+
+        return r;
     }
 
 

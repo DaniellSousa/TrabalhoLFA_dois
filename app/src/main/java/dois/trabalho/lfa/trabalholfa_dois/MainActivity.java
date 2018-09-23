@@ -222,12 +222,27 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
+        // Verificação de strings consecutivas no verbo.
+        for (String verbo: regras.keySet()) {
+
+//            for (int a=0; a<regras.get(verbo).length(); ) {
+//
+//            }
+
+            if (itemsOutroVerboContainsSequenciaAndNotInInput(regras.get(verbo), input)) {
+                this.etSaida.setText("N");
+                return;
+            }
+
+        }
+
+
+
         for (int i =0; i< input.length(); i++) {
 
             for (String verbo : regras.keySet()) {
 
                 for (int z=0; z<regras.get(verbo).length(); z++) {
-
                     if (input.charAt(i) == regras.get(verbo).charAt(z)) {
                         inputValido = true;
                         sair3 = true;
@@ -235,6 +250,15 @@ public class MainActivity extends AppCompatActivity {
                         // Navegar nos itens desse outro verbo isAnyVerb(String.valueOf(input.charAt(i))). Verificar se tem algum terminal em algum item desse outro verbo.
 
                         String itemsOutroVerbo = getItemsFromVerb(String.valueOf(input.charAt(i)));
+
+                        // Verificação de strings consecutivas no verbo.
+
+                        if (itemsOutroVerboContainsSequenciaAndNotInInput(itemsOutroVerbo, input)) {
+                            sair2 = true;
+                            sair1 = true;
+                            inputValido = false;
+                            break;
+                        }
 
                         boolean sair4 = false;
 
@@ -278,11 +302,74 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private boolean itemsOutroVerboContainsSequenciaAndNotInInput(String items, String input) {
+        boolean valid = false;
+
+        boolean isSequencia = false;
+
+        String sequencia = "";
+        for (int i=0; i<items.length(); i++) {
+
+            if (inputIsDiferenteDeVerbo(String.valueOf(items.charAt(i)))
+                    && !String.valueOf(items.charAt(i)).equals("|") ) {
+                sequencia += String.valueOf(items.charAt(i));
+                isSequencia = true;
+            }else {
+                sequencia = "";
+
+            }
+
+            if (isSequencia && !sequencia.equals("")) {
+
+                if (!input.contains(sequencia) && !sequenciaIsTerminalIsolado(sequencia)) {
+                    valid = true;
+                    break;
+                }
+            }
+
+        }
+
+        return valid;
+    }
+
+    private boolean sequenciaIsTerminalIsolado(String in) { // Verificar se a sequncia é um terminal isolado ou um sequencia de terminais
+        boolean is = false;
+
+        if (in.length() == 1) {
+            is = true;
+        }else {
+            is = false;
+        }
+
+        return is;
+    }
+
+    private boolean inputIsDiferenteDeVerbo(String in) {
+        boolean valid = false;
+
+        int count = 0;
+        for (int i=0; i<verbos.size(); i++) {
+
+            if (!verbos.get(i).equals(in)) {
+                count += 1;
+            }
+
+        }
+
+        if (count == verbos.size()) {
+            valid = true;
+        }else {
+            valid = false;
+        }
+
+        return valid;
+    }
+
     private String getItemsFromVerb(String verb) {
         String items = "";
 
         for (String key : regras.keySet()) {
-            if (key == verb) {
+            if (key.equals(verb)) {
                 items = regras.get(key);
                 break;
             }
@@ -296,7 +383,7 @@ public class MainActivity extends AppCompatActivity {
 
         for (int i=0; i<this.verbos.size(); i++) {
 
-            if (item == this.verbos.get(i)) {
+            if (item.equals(this.verbos.get(i))) {
                 is = true;
                 break;
             }

@@ -73,6 +73,11 @@ public class MainActivity extends AppCompatActivity {
                 }else if (etSimboloInicial.getText().toString().trim().length() == 0) {
                     Toast.makeText(MainActivity.this, "Digite o símbolo inicial.", Toast.LENGTH_LONG).show();
                 }else {
+                    verbos.clear();
+                    terminais.clear();
+                    regras.clear();
+                    simboloInicial = "";
+
                     Toast.makeText(MainActivity.this, "Válido!", Toast.LENGTH_LONG).show();
                     organizarPropriedades();
                     layoutEntrada.setVisibility(View.VISIBLE);
@@ -152,10 +157,18 @@ public class MainActivity extends AppCompatActivity {
                 }else if (!(itemRegraAtual.equals(verboAtual)) && itemRegraPosterior.equals("-")) {
                     auxCaminhoRegras = j;
                     break;
-                }else if (itemRegraAtual.equals("-")) {
+                }
+
+//                else if (itemRegraAtual.equals(verboAtual) && itemRegraPosterior.equals("-") && j >= auxCaminhoRegras) {
+//                    auxCaminhoRegras = j;
+//                    break;
+//                }
+
+                else if (itemRegraAtual.equals("-")) {
                     continue;
                 }else if (itemRegraAtual.equals("\n")) {
-                    continue;
+                    auxCaminhoRegras = j+1;
+                    break;
                 }
 
                 if (!itemRegraPosterior.equals("|") && !itemRegraPosterior.equals("\n")) {
@@ -172,6 +185,7 @@ public class MainActivity extends AppCompatActivity {
 
 //            regrasDoVerbo = regrasDoVerbo.replace("||", "|");
             this.regras.put(verboAtual, regrasDoVerbo);
+//            this.regras.putIfAbsent(verboAtual, regrasDoVerbo);
 
         }
 
